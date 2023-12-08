@@ -1,2 +1,2 @@
 # ChristmasTreeOS
-WS12812b Christmas tree os
+Adressable LED Christmas tree os
