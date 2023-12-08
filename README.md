@@ -1,2 +1,2 @@
 # ChristmasTreeOS
-## WS12812b Christmas tree os
+WS12812b Christmas tree os
