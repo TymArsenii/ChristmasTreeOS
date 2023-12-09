@@ -1,7 +1,6 @@
 # ChristmasTreeOS
 Adressable LED Christmas tree os
 
-<a id="versions"></a>
 ## Updates
   v1.0
     - Basic effects 
