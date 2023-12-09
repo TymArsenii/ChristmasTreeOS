@@ -2,7 +2,7 @@
 Adressable LED Christmas tree os
 
 ## Updates
-  v1.0
+  v1.0 /n
     - Basic effects 
     - Stable
   v1.1 
