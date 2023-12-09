@@ -5,6 +5,7 @@
 #include <FastLED.h>
 
 #define NUM_LEDS 28
+#define ROWS_NUM 7
 #define LED_PIN 13
 
 #define HUE_START 3  // Starting color of fire -- not used!
@@ -24,7 +25,29 @@ CRGB leds[NUM_LEDS];
 #define FOR_i(from, to) for (int i = (from); i < (to); i++)
 #define FOR_j(from, to) for (int j = (from); j < (to); j++)
 
-byte change = 1;
+int each_leds_amount[]{
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+};
+
+int each_leds_dir[]{
+    // -1 <-;
+    // 1 ->;
+    -1,
+    1,
+    -1,
+    1,
+    -1,
+    1,
+    -1,
+};
+
+byte change = 3;
 
 float smooth_k_int = 0.25;
 byte smooth_rainbow = 2;
@@ -56,6 +79,7 @@ int module;
 float module_float;
 
 byte color_pos[50][50];
+int pos_arr[10][10];
 
 uint32_t start_timer;
 uint32_t button_debounce_timer;
@@ -97,6 +121,32 @@ void setup()
   pinMode(2, OUTPUT);
   randomSeed(analogRead(A0) + analogRead(A1) - analogRead(A2));
   start_timer = millis();
+
+  for (int id = 0; id < 10; id++)
+  {
+    for (int id2 = 0; id2 < 10; id2++)
+    {
+      pos_arr[id][id2] = 0;
+    }
+  }
+  int led_num = NUM_LEDS;
+  for (int row_id = 0; row_id < ROWS_NUM; row_id++)
+  {
+    int row_arr[10];
+    for (int led_id = 0; led_id < each_leds_amount[row_id]; led_id++)
+    {
+      row_arr[led_id] = led_num;
+      if (each_leds_dir[row_id] == -1)
+      {
+        pos_arr[led_id][row_id] = row_arr[led_id];
+      }
+      else
+      {
+        pos_arr[each_leds_amount[row_id] - led_id - 1][row_id] = row_arr[led_id];
+      }
+      led_num--;
+    }
+  }
 }
 void loop()
 {
@@ -124,7 +174,7 @@ void loop()
   {
     flag = 0;
   }
-  if (millis() - change_timer >= 20000)
+  if (millis() - change_timer >= 20000 && 1 == 2)
   {
     change_timer = millis();
     change++;
@@ -191,7 +241,7 @@ void loop()
   }
   else if (change == 3)
   {
-    bounce_ball_effect();
+    random_pos_ball();
   }
   else if (change == 4)
   {
@@ -567,6 +617,47 @@ void Ukraine()
   }
   FastLED.show();
 }
+
+void random_pos_ball()
+{
+  if (millis() - moving_ball_timer >= 200)
+  {
+    /*
+    leds[ledsXY(0, 0)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(6, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 3)] = CHSV(255, 255, 255);
+    leds[ledsXY(3, 6)] = CHSV(150, 255, 255);  //
+    leds[ledsXY(0, 0)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 1)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 2)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 3)] = CHSV(150, 255, 255);  //
+    leds[ledsXY(0, 4)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 5)] = CHSV(255, 255, 255);
+    leds[ledsXY(0, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(1, 1)] = CHSV(255, 255, 255);
+    leds[ledsXY(2, 2)] = CHSV(255, 255, 255);
+    leds[ledsXY(3, 3)] = CHSV(150, 255, 255);  //
+    leds[ledsXY(4, 4)] = CHSV(255, 255, 255);
+    leds[ledsXY(5, 5)] = CHSV(255, 255, 255);
+    leds[ledsXY(6, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(1, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(2, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(4, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(5, 6)] = CHSV(255, 255, 255);
+    leds[ledsXY(1, 4)] = CHSV(150, 255, 255);
+    leds[ledsXY(2, 5)] = CHSV(150, 255, 255);
+    leds[ledsXY(3, 5)] = CHSV(150, 255, 255);
+    leds[ledsXY(3, 4)] = CHSV(150, 255, 255);
+    leds[ledsXY(1, 3)] = CHSV(150, 255, 255);
+    leds[ledsXY(2, 3)] = CHSV(150, 255, 255);
+*/
+
+  }
+  FastLED.show();
+}
+
+int ledsXY(int x, int y) { return pos_arr[x][y] - 1; }
 
 CRGB getFireColor(int val)
 {
