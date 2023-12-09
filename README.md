@@ -5,7 +5,7 @@ Adressable LED Christmas tree os
  - v1.0 <br>
     - Basic effects <br>
     - Stable <br>
- - v1.1 <br>
+ - v1.1
     - XY leds access <br>
     - Stable <br>
 
