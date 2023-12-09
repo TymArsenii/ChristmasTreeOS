@@ -1,7 +1,6 @@
 # ChristmasTreeOS
 Adressable LED Christmas tree os
 
-<a id="versions">
 ### Updates
   v1.0
     -Basic effects 
@@ -9,8 +8,8 @@ Adressable LED Christmas tree os
   v1.1 
     -XY leds access
     -Stable
-</a>
 <a id="versions"></a>
+
 ## Версии
 <details>
 <summary>Старые</summary>
