@@ -9,5 +9,4 @@ Adressable LED Christmas tree os
   v1.1 
     -XY leds access
     -Stable
-  </details>
-<a id="versions"></a>
+</details>
